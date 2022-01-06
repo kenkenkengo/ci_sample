@@ -19,7 +19,7 @@ jobs:
       - image: circleci/mysql:8.0
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-          # - MYSQL_HOST: "127.0.0.1"
+          - MYSQL_HOST: "127.0.0.1"
     executor: ruby/default
     working_directory: ~/myapp
     steps:
@@ -37,6 +37,7 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run: mv ./config/database.yml.ci ./config/database.yml
       - run:
           name: Databasesetup
           command: |
